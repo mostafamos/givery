@@ -66,7 +66,7 @@ def add_recipe():
     return jsonify({
         "message": "Recipe successfully created!",
         "recipe": [new_recipe]
-    }), 201
+    }), 200
 
 # Update a recipe by ID
 @app.route('/recipes/<int:recipe_id>', methods=['PUT'])
