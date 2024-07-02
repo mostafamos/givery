@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from datetime import datetime
-
+import os
 app = Flask(__name__)
 
 # In-memory storage for recipes
@@ -99,4 +99,9 @@ def delete_recipe(recipe_id):
     return jsonify({"message": "No recipe found"}), 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # This block will be used for local development or testing only
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('DEBUG', 'False').lower() in ['true', '1', 't']
+    host = '0.0.0.0' if not debug else '127.0.0.1'
+
+    app.run(host=host, port=port, debug=debug)
