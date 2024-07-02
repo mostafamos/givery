@@ -89,26 +89,6 @@ def update_recipe(recipe_id):
     return jsonify({"message": "No recipe found"}), 404
 
 
-# Update a recipe by ID
-@app.route('/recipes/<int:recipe_id>', methods=['POST'])
-def update_recipe(recipe_id):
-    data = request.json
-    recipe = next((r for r in recipes if r["id"] == recipe_id), None)
-    if recipe:
-        recipe.update({
-            "title": data.get("title", recipe["title"]),
-            "making_time": data.get("making_time", recipe["making_time"]),
-            "serves": data.get("serves", recipe["serves"]),
-            "ingredients": data.get("ingredients", recipe["ingredients"]),
-            "cost": data.get("cost", recipe["cost"]),
-            "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        })
-        return jsonify({
-            "message": "Recipe successfully updated!",
-            "recipe": [recipe]
-        }), 200
-    return jsonify({"message": "No recipe found"}), 404
-
 # Delete a recipe by ID
 @app.route('/recipes/<int:recipe_id>', methods=['DELETE'])
 def delete_recipe(recipe_id):
